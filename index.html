@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colegio Montano - Scientific Inquiry & Market Research Guide</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Nunito & Segoe UI -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        montanoBlue: '#1269A8',
+                        montanoYellow: '#F7D615',
+                        montanoTeal: '#54887D',
+                        montanoLightBlue: '#88B5C7',
+                        montanoOlive: '#A6B046',
+                        montanoBg: '#F2F5E9',
+                    },
+                    fontFamily: {
+                        sans: ['Nunito', 'Segoe UI', 'Tahoma', 'Verdana', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F2F5E9;
+            font-family: 'Nunito', 'Segoe UI', sans-serif;
+        }
+        .whiteboard-frame {
+            background: #ffffff;
+            border: 4px solid #d1d5db;
+            border-radius: 20px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        /* Custom scrollbar for clean UI */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F2F5E9;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #88B5C7;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1269A8;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-gray-800 p-2 sm:p-6">
+
+    <!-- App Container / Whiteboard Frame -->
+    <div id="appContainer" class="whiteboard-frame max-w-7xl mx-auto flex flex-col min-h-[92vh] overflow-hidden transition-all duration-300">
+        
+        <!-- Header Section -->
+        <header class="bg-montanoBlue text-white p-4 sm:p-6 flex flex-col md:flex-row items-center justify-between border-b-4 border-montanoYellow rounded-t-[16px]">
+            <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyEop0yf6lZ7Jk9MILZxF1rBj4Oqs5esyhIQ&amp;s" alt="Colegio Montano Logo" class="w-16 h-16 rounded-full bg-white p-1 object-cover shadow-md border-2 border-montanoYellow" onerror="this.src='https://placehold.co/80x80/1269A8/FFFFFF?text=CM'">
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-extrabold tracking-wide">COLEGIO MONTANO</h1>
+                    <p class="text-montanoYellow text-sm font-semibold">12th Grade Mercadotecnia | Psychology & Scientific Method (B2-C1 ESL)</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <span class="bg-montanoTeal text-xs sm:text-sm px-3 py-1.5 rounded-full font-bold shadow text-white">Consumer Psychology & Inquiry</span>
+                <button onclick="toggleFullscreen()" class="bg-montanoYellow text-montanoBlue font-bold px-4 py-2 rounded-xl shadow-lg hover:bg-yellow-300 transition-transform active:scale-95 flex items-center space-x-2">
+                    <i class="fa-solid fa-expand"></i>
+                    <span class="hidden sm:inline">Fullscreen</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs Bar -->
+        <nav class="bg-montanoBg p-3 border-b border-gray-200 overflow-x-auto">
+            <div class="flex space-x-2 min-w-max">
+                <button onclick="switchTab(1)" id="tabBtn1" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center space-x-2 bg-montanoBlue text-white shadow-md">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>1. Theory & Grammar</span>
+                </button>
+                <button onclick="switchTab(2)" id="tabBtn2" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center space-x-2 bg-white text-gray-700 hover:bg-montanoLightBlue hover:text-white shadow-sm">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span>2. Solved Examples (15)</span>
+                </button>
+                <button onclick="switchTab(3)" id="tabBtn3" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center space-x-2 bg-white text-gray-700 hover:bg-montanoLightBlue hover:text-white shadow-sm">
+                    <i class="fa-solid fa-microphone-lines"></i>
+                    <span>3. Voice Simulator & Dashboard</span>
+                </button>
+                <button onclick="switchTab(4)" id="tabBtn4" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center space-x-2 bg-white text-gray-700 hover:bg-montanoLightBlue hover:text-white shadow-sm">
+                    <i class="fa-solid fa-lightbulb"></i>
+                    <span>4. Critical Reflection</span>
+                </button>
+                <button onclick="switchTab(5)" id="tabBtn5" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center space-x-2 bg-white text-gray-700 hover:bg-montanoLightBlue hover:text-white shadow-sm">
+                    <i class="fa-solid fa-clipboard-question"></i>
+                    <span>5. Formative Evaluation (15)</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-4 sm:p-8 overflow-y-auto bg-white">
+            
+            <!-- TAB 1: THEORY & GRAMMAR -->
+            <div id="tabContent1" class="tab-pane space-y-6">
+                <div class="border-l-8 border-montanoBlue bg-montanoBg p-5 rounded-r-2xl shadow-sm">
+                    <h2 class="text-2xl font-extrabold text-montanoBlue mb-2">Guide 4: Descriptive and Correlational Research in Mercadotecnia</h2>
+                    <p class="text-gray-700 leading-relaxed text-sm sm:text-base">
+                        Welcome to Guide 4, 12th-grade marketing leaders! Building on our mastery of experiments, we now explore non-experimental methodologies: <strong>descriptive research</strong> (surveys, interviews, observation, and case studies) and <strong>correlational research</strong>. We will analyze patterns and trends in consumer data, learn to interpret scatterplots and coefficients, and internalize the golden rule: <em>correlation does not establish causation</em>.
+                    </p>
+                </div>
+
+                <!-- 70-Minute Lesson Framework Banner (Guide 4) -->
+                <div class="bg-white border-2 border-montanoYellow rounded-2xl p-5 shadow-sm">
+                    <h3 class="font-bold text-lg text-montanoBlue mb-3 flex items-center">
+                        <i class="fa-solid fa-clock mr-2 text-montanoYellow"></i> Structured 70-Minute Lesson Framework (Guide 4)
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
+                        <div class="bg-montanoBg p-3 rounded-xl border border-gray-200">
+                            <span class="font-extrabold text-montanoBlue block mb-1">Review</span>
+                            <strong>Experimental Recap:</strong> Reviewing controls, random assignment, and causal claims.
+                        </div>
+                        <div class="bg-montanoBg p-3 rounded-xl border border-gray-200">
+                            <span class="font-extrabold text-montanoTeal block mb-1">Introduction</span>
+                            <strong>Descriptive & Correlational:</strong> Discovering patterns without manipulating variables.
+                        </div>
+                        <div class="bg-montanoBg p-3 rounded-xl border border-gray-200">
+                            <span class="font-extrabold text-montanoOlive block mb-1">Methodology</span>
+                            <strong>Methods Comparison:</strong> Comparing surveys, interviews, observation, and case studies.
+                        </div>
+                        <div class="bg-montanoBg p-3 rounded-xl border border-gray-200">
+                            <span class="font-extrabold text-montanoBlue block mb-1">Data Analysis</span>
+                            <strong>Interpreting Findings:</strong> Analyzing fictional market data and distinguishing association vs. causation.
+                        </div>
+                        <div class="bg-montanoBg p-3 rounded-xl border border-gray-200">
+                            <span class="font-extrabold text-montanoYellow block mb-1">Application</span>
+                            <strong>Method Choice:</strong> Selecting the ideal research method for three marketing questions.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Concept Cards Grid (Guide 4) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Card 1 -->
+                    <div class="border-2 border-montanoLightBlue rounded-2xl p-5 shadow-md bg-white hover:shadow-xl transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-montanoBlue text-white text-xs font-bold px-3 py-1 rounded-full">Core Concept 1</span>
+                                <i class="fa-solid fa-binoculars text-montanoBlue text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-montanoBlue mb-2">Descriptive Research</h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                Research designed to systematically describe behaviors, attitudes, or market characteristics without manipulating variables, using surveys, observation, and case studies.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-gray-500 mb-1">
+                                <span>Real-World Insight</span>
+                                <span class="text-montanoTeal">96%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-montanoTeal h-2.5 rounded-full" style="width: 96%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="border-2 border-montanoLightBlue rounded-2xl p-5 shadow-md bg-white hover:shadow-xl transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-montanoTeal text-white text-xs font-bold px-3 py-1 rounded-full">Core Concept 2</span>
+                                <i class="fa-solid fa-comments text-montanoTeal text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-montanoTeal mb-2">Surveys & Interviews</h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                <strong>Surveys:</strong> Gather self-reported attitudes or behaviors from large samples quickly. <br><strong>Interviews:</strong> Provide deep qualitative insights through direct dialogue.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-gray-500 mb-1">
+                                <span>Data Breadth</span>
+                                <span class="text-montanoBlue">92%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-montanoBlue h-2.5 rounded-full" style="width: 92%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="border-2 border-montanoLightBlue rounded-2xl p-5 shadow-md bg-white hover:shadow-xl transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-montanoOlive text-white text-xs font-bold px-3 py-1 rounded-full">Core Concept 3</span>
+                                <i class="fa-solid fa-eye text-montanoOlive text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-montanoOlive mb-2">Observation & Case Studies</h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                <strong>Observation:</strong> Watching and recording natural consumer actions without intervention. <br><strong>Case Studies:</strong> In-depth examinations of a single consumer, brand, or retail store.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-gray-500 mb-1">
+                                <span>Depth & Authenticity</span>
+                                <span class="text-montanoOlive">95%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-montanoOlive h-2.5 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="border-2 border-montanoLightBlue rounded-2xl p-5 shadow-md bg-white hover:shadow-xl transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-montanoBlue text-white text-xs font-bold px-3 py-1 rounded-full">Core Concept 4</span>
+                                <i class="fa-solid fa-chart-pie text-montanoBlue text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-montanoBlue mb-2">Correlational Relationships</h3>
+                            <p class="text-sm text-gray-600 mb-4">
+                                Measuring the statistical association between two or more variables to identify patterns and trends (positive, negative, or zero correlation coefficients).
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold text-gray-500 mb-1">
+                                <span>Pattern Recognition</span>
+                                <span class="text-montanoTeal">94%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-montanoTeal h-2.5 rounded-full" style="width: 94%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="border-2 border-montanoLightBlue rounded-2xl p-5 shadow-md bg-white hover:shadow-xl transition-all flex flex-col justify-between md:col-span-2 lg:col-span-2">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-montanoYellow text-montanoBlue font-extrabold text-xs px-3 py-1 rounded-full">Core Concept 5</span>
+                                <i class="fa-solid fa-triangle-exclamation text-montanoBlue text-xl"></i>
+                            </div>
+                            <h3 class="font-bold text-lg text-montanoBlue mb-2">Correlation Does Not Establish Causation</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-gray-700 mt-2">
+                                <div class="bg-montanoBg p-2.5 rounded-xl border border-gray-200"><strong>The Fallacy:</strong> Assuming variable A causes variable B simply because they move together.</div>
+                                <div class="bg-montanoBg p-2.5 rounded-xl border border-gray-200"><strong>The Reality:</strong> A third confounding variable (C) or reverse causation may explain the statistical link.</div>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <div class="flex justify-between text-xs font-semibold text-gray-500 mb-1">
+                                <span>Critical Analysis Rigor</span>
+                                <span class="text-montanoBlue">99%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 h-2.5 rounded-full overflow-hidden">
+                                <div class="bg-montanoBlue h-2.5 rounded-full" style="width: 99%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TAB 2: SOLVED EXAMPLES (15) -->
+            <div id="tabContent2" class="tab-pane hidden space-y-6">
+                <div class="border-l-8 border-montanoTeal bg-montanoBg p-5 rounded-r-2xl shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-montanoTeal mb-1">Solved Descriptive & Correlational Examples</h2>
+                        <p class="text-gray-700 text-sm">15 meticulously broken-down examples covering surveys, interviews, observation, case studies, correlation coefficients, and causation fallacies with Text-to-Speech audio support.</p>
+                    </div>
+                    <div class="mt-3 sm:mt-0 flex space-x-2">
+                        <button onclick="filterExamples('all')" class="px-3 py-1 rounded-lg bg-montanoTeal text-white text-xs font-bold">All</button>
+                        <button onclick="filterExamples('basic')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Basic (1-5)</button>
+                        <button onclick="filterExamples('intermediate')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Interm. (6-10)</button>
+                        <button onclick="filterExamples('advanced')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Advanced (11-15)</button>
+                    </div>
+                </div>
+
+                <!-- Examples Container -->
+                <div id="examplesContainer" class="space-y-4">
+                    <!-- Javascript will render 15 examples here -->
+                </div>
+            </div>
+
+            <!-- TAB 3: LIVE INTERACTIVE VOICE SIMULATOR & DASHBOARD -->
+            <div id="tabContent3" class="tab-pane hidden space-y-6">
+                <div class="border-l-8 border-montanoOlive bg-montanoBg p-5 rounded-r-2xl shadow-sm">
+                    <h2 class="text-2xl font-extrabold text-montanoOlive mb-1">Live Interactive Voice Simulator & Performance Dashboard (Guide 4)</h2>
+                    <p class="text-gray-700 text-sm">Step into a market research consultation with Research Director Carlos. Address the challenge: "Choose and justify a descriptive or correlational method for analyzing consumer trends in Guatemala City." Speak into your microphone or type your response. Real-time AI metrics evaluate your clarity, grammar, and professional etiquette!</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    
+                    <!-- Simulator Interface (2 Cols) -->
+                    <div class="lg:col-span-2 bg-gray-50 border-2 border-montanoLightBlue rounded-2xl p-5 flex flex-col justify-between shadow-md">
+                        <div>
+                            <div class="flex items-center justify-between border-b pb-3 mb-4">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 rounded-full bg-montanoTeal text-white flex items-center justify-center font-bold text-lg shadow">RD</div>
+                                    <div>
+                                        <h4 class="font-bold text-montanoTeal">Carlos Mendoza (Research Director)</h4>
+                                        <span class="text-xs text-green-600 font-semibold flex items-center"><span class="w-2 h-2 rounded-full bg-green-500 inline-block mr-1.5 animate-pulse"></span> Active Session</span>
+                                    </div>
+                                </div>
+                                <button onclick="speakDialogue('Hello 12th-grade analyst. For our upcoming retail study, would you recommend a survey, observation, or correlational analysis? Remember: correlation does not establish causation!')" class="bg-montanoYellow text-montanoBlue p-2 rounded-xl text-sm font-bold shadow hover:bg-yellow-300 flex items-center space-x-1">
+                                    <i class="fa-solid fa-volume-high"></i>
+                                    <span>Listen Prompt</span>
+                                </button>
+                            </div>
+
+                            <!-- Chat Dialogue Box -->
+                            <div id="simChatBox" class="bg-white rounded-xl p-4 h-64 overflow-y-auto border border-gray-200 space-y-3 mb-4 shadow-inner">
+                                <div class="flex items-start space-x-2">
+                                    <div class="bg-montanoTeal text-white rounded-full w-8 h-8 flex items-center justify-center text-xs font-bold flex-shrink-0">RD</div>
+                                    <div class="bg-teal-50 text-gray-800 p-3 rounded-2xl rounded-tl-none text-sm max-w-[85%] border border-teal-100">
+                                        "Welcome to the research briefing! Explain whether we should use <strong>descriptive surveys</strong> or <strong>correlational analysis</strong> to examine consumer shopping trends, and explain why correlation does not equal causation."
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Input Controls -->
+                        <div class="space-y-3">
+                            <div class="flex space-x-2">
+                                <input type="text" id="simUserInput" placeholder="Type your research method response in English..." class="flex-1 border-2 border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-montanoTeal">
+                                <button onclick="handleUserSimInput()" class="bg-montanoTeal text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow hover:bg-teal-700 transition-all flex items-center space-x-1">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                    <span>Send</span>
+                                </button>
+                                <button onclick="toggleVoiceRecognition()" id="micBtn" class="bg-montanoBlue text-white px-4 py-2.5 rounded-xl font-bold text-sm shadow hover:bg-sky-700 transition-all" title="Speech Recognition">
+                                    <i class="fa-solid fa-microphone"></i>
+                                </button>
+                            </div>
+                            <p class="text-xs text-gray-500 italic text-center">Tip: Use B2-C1 research terms (descriptive research, surveys, observation, correlation, causation, confounding variable).</p>
+                        </div>
+                    </div>
+
+                    <!-- Performance Dashboard (1 Col) -->
+                    <div class="bg-white border-2 border-montanoOlive rounded-2xl p-5 flex flex-col justify-between shadow-md space-y-4">
+                        <div>
+                            <h3 class="font-extrabold text-montanoOlive text-lg mb-3 flex items-center justify-between">
+                                <span>Live Performance Dashboard</span>
+                                <i class="fa-solid fa-chart-line"></i>
+                            </h3>
+                            
+                            <!-- Metric 1 -->
+                            <div class="mb-3">
+                                <div class="flex justify-between text-xs font-bold text-gray-700 mb-1">
+                                    <span>Pronunciation & Speech Clarity</span>
+                                    <span id="metricPronounceVal">85%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+                                    <div id="metricPronounceBar" class="bg-montanoBlue h-3 rounded-full transition-all duration-500" style="width: 85%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Metric 2 -->
+                            <div class="mb-3">
+                                <div class="flex justify-between text-xs font-bold text-gray-700 mb-1">
+                                    <span>Topic / Grammar Accuracy</span>
+                                    <span id="metricGrammarVal">90%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+                                    <div id="metricGrammarBar" class="bg-montanoTeal h-3 rounded-full transition-all duration-500" style="width: 90%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Metric 3 -->
+                            <div class="mb-4">
+                                <div class="flex justify-between text-xs font-bold text-gray-700 mb-1">
+                                    <span>Politeness & Expression Etiquette</span>
+                                    <span id="metricEtiquetteVal">95%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+                                    <div id="metricEtiquetteBar" class="bg-montanoOlive h-3 rounded-full transition-all duration-500" style="width: 95%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Key Terms Detected -->
+                            <div class="mb-4">
+                                <h4 class="text-xs font-bold text-gray-600 uppercase tracking-wide mb-2">Key Terms Detected:</h4>
+                                <div id="keyTermsContainer" class="flex flex-wrap gap-1.5">
+                                    <span class="bg-montanoBg text-montanoTeal text-xs font-bold px-2.5 py-1 rounded-lg border border-teal-200">Descriptive Research</span>
+                                    <span class="bg-montanoBg text-montanoBlue text-xs font-bold px-2.5 py-1 rounded-lg border border-blue-200">Surveys</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI Pedagogical Feedback Box -->
+                        <div class="bg-montanoBg border-2 border-montanoYellow rounded-xl p-3">
+                            <h5 class="text-xs font-extrabold text-montanoTeal uppercase mb-1 flex items-center">
+                                <i class="fa-solid fa-robot mr-1.5"></i> AI Pedagogical Feedback
+                            </h5>
+                            <p id="aiFeedbackText" class="text-xs text-gray-700 leading-relaxed">
+                                "Great engagement! Discuss correlation versus causation to achieve C1 descriptive research proficiency."
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TAB 4: CRITICAL REFLECTION QUESTIONS -->
+            <div id="tabContent4" class="tab-pane hidden space-y-6">
+                <div class="border-l-8 border-montanoLightBlue bg-montanoBg p-5 rounded-r-2xl shadow-sm">
+                    <h2 class="text-2xl font-extrabold text-montanoBlue mb-1">Critical Reflection & Checkpoint</h2>
+                    <p class="text-gray-700 text-sm">Complete the descriptive research reflections and submit your method selection proposal for three marketing questions (Activity 1 due).</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- Reflection 1 -->
+                    <div class="bg-white border-2 border-gray-200 rounded-2xl p-5 shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="bg-montanoTeal text-white text-xs font-bold px-3 py-1 rounded-full">Dilemma 1</span>
+                                <span class="text-xs text-gray-500">Correlation vs. Causation Fallacy</span>
+                            </div>
+                            <h3 class="font-bold text-montanoTeal text-base mb-2">The Advertising & Sales Trap</h3>
+                            <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                                A market study finds a strong positive correlation (+0.82) between the number of social media posts a brand makes and its monthly retail sales. The brand manager concludes that posting more causes sales to double. 
+                                <br><br><strong>Task:</strong> Critically analyze why this correlational finding does not prove causation and identify at least two plausible third confounding variables.
+                            </p>
+                        </div>
+                        <div>
+                            <textarea id="refInput1" rows="4" placeholder="Write your critical reflection here (minimum 40 words)..." class="w-full border-2 border-gray-300 rounded-xl p-3 text-xs focus:outline-none focus:border-montanoTeal mb-2"></textarea>
+                            <div class="flex justify-between items-center">
+                                <span id="wordCount1" class="text-xs text-gray-400 font-semibold">0 words</span>
+                                <button onclick="saveReflection(1)" class="bg-montanoTeal text-white text-xs font-bold px-4 py-2 rounded-xl shadow hover:bg-teal-700">Save Reflection</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reflection 2: Checkpoint & Activity 1 -->
+                    <div class="bg-white border-2 border-montanoYellow rounded-2xl p-5 shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="bg-montanoYellow text-montanoBlue font-extrabold text-xs px-3 py-1 rounded-full">Checkpoint (Activity 1 Due)</span>
+                                <span class="text-xs text-gray-500">Method Selection for 3 Marketing Questions</span>
+                            </div>
+                            <h3 class="font-bold text-montanoBlue text-base mb-2">Selecting Research Methods</h3>
+                            <p class="text-xs text-gray-600 mb-4 leading-relaxed">
+                                Choose and justify the most suitable research method (Survey, Interview, Naturalistic Observation, Case Study, Correlational Analysis, or Experiment) for three marketing questions: <strong>1. Measuring customer satisfaction across 5,000 buyers</strong>, <strong>2. Investigating in-store shopping navigation behaviors</strong>, and <strong>3. Examining the statistical link between ad spend and brand recall</strong>.
+                            </p>
+                        </div>
+                        <div>
+                            <textarea id="refInput2" rows="4" placeholder="Draft your method selection justification here (minimum 35 words)..." class="w-full border-2 border-gray-300 rounded-xl p-3 text-xs focus:outline-none focus:border-montanoYellow mb-2"></textarea>
+                            <div class="flex justify-between items-center">
+                                <span id="wordCount2" class="text-xs text-gray-400 font-semibold">0 words</span>
+                                <button onclick="saveReflection(2)" class="bg-montanoYellow text-montanoBlue text-xs font-bold px-4 py-2 rounded-xl shadow hover:bg-yellow-300">Submit Activity 1 Checkpoint</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TAB 5: FORMATIVE EVALUATION (15 PROBLEMS) -->
+            <div id="tabContent5" class="tab-pane hidden space-y-6">
+                <div class="border-l-8 border-montanoYellow bg-montanoBg p-5 rounded-r-2xl shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-montanoBlue mb-1">Formative Evaluation (15 Problems - Guide 4)</h2>
+                        <p class="text-gray-700 text-sm">Test your mastery of descriptive research methods, surveys, observation, case studies, correlational relationships, and causation fallacies across 3 difficulty levels.</p>
+                    </div>
+                    <div class="mt-3 sm:mt-0 flex space-x-2">
+                        <button onclick="filterEvaluation('all')" class="px-3 py-1 rounded-lg bg-montanoBlue text-white text-xs font-bold">All (15)</button>
+                        <button onclick="filterEvaluation('basic')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Basic (1-5)</button>
+                        <button onclick="filterEvaluation('intermediate')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Interm. (6-10)</button>
+                        <button onclick="filterEvaluation('advanced')" class="px-3 py-1 rounded-lg bg-gray-200 text-gray-700 text-xs font-bold hover:bg-montanoLightBlue hover:text-white">Advanced (11-15)</button>
+                    </div>
+                </div>
+
+                <!-- Evaluation Container -->
+                <div id="evaluationContainer" class="space-y-4">
+                    <!-- Javascript will render 15 evaluation problems here -->
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-montanoBg p-4 border-t border-gray-200 text-center text-xs text-gray-600 rounded-b-[16px]">
+            Colegio Montano Educational Portal &bull; Advanced 12th Grade Mercadotecnia Department &bull; Guide 4: Descriptive and Correlational Research
+        </footer>
+
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Fullscreen Toggle
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    showMsg("Error attempting to enable fullscreen: " + err.message);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // Custom Message Box (Replacing alert)
+        function showMsg(message) {
+            const existingModal = document.getElementById('customAlertModal');
+            if (existingModal) existingModal.remove();
+
+            const modal = document.createElement('div');
+            modal.id = 'customAlertModal';
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+            modal.innerHTML = `
+                <div class="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl border-4 border-montanoBlue text-center">
+                    <div class="text-montanoBlue text-3xl mb-3"><i class="fa-solid fa-circle-info"></i></div>
+                    <h3 class="font-extrabold text-lg text-gray-800 mb-2">Colegio Montano Notice</h3>
+                    <p class="text-sm text-gray-600 mb-5">${message}</p>
+                    <button onclick="document.getElementById('customAlertModal').remove()" class="bg-montanoBlue text-white px-6 py-2 rounded-xl font-bold text-sm shadow hover:bg-sky-700 w-full">Understood</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // Tab Switching Logic
+        function switchTab(tabNum) {
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-montanoBlue', 'text-white', 'shadow-md');
+                btn.classList.add('bg-white', 'text-gray-700', 'shadow-sm');
+            });
+
+            document.getElementById(`tabContent${tabNum}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tabBtn${tabNum}`);
+            activeBtn.classList.remove('bg-white', 'text-gray-700', 'shadow-sm');
+            activeBtn.classList.add('bg-montanoBlue', 'text-white', 'shadow-md');
+        }
+
+        // Text-to-Speech function
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.95;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                showMsg("Text-to-speech is not supported in your browser.");
+            }
+        }
+
+        function speakDialogue(text) {
+            speakText(text);
+        }
+
+        // 15 Solved Examples Data (Guide 4: Descriptive and Correlational Research)
+        const solvedExamplesData = [
+            // Basic (1-5)
+            { id: 1, level: 'basic', title: 'Review: Experimental Research Recap', desc: 'Recalling how true experiments use random assignment and control groups to establish cause-and-effect claims.', breakdown: '<strong>Experimental Foundation:</strong> Contrast experiments with descriptive methods which do not manipulate variables.' },
+            { id: 2, level: 'basic', title: 'Introduction to Descriptive Research', desc: 'Conducting a broad market survey to record current consumer preference percentages for eco-friendly packaging.', breakdown: '<strong>Descriptive Purpose:</strong> Systematic documentation of market traits without active manipulation.' },
+            { id: 3, level: 'basic', title: 'Administering Consumer Surveys', desc: 'Distributing a digital questionnaire to 1,000 shoppers asking about their weekly coffee purchasing habits.', breakdown: '<strong>Survey Method:</strong> Efficiently gathers self-reported attitudes and behaviors from large samples.' },
+            { id: 4, level: 'basic', title: 'Conducting Qualitative Interviews', desc: 'Holding in-depth one-on-one audio interviews with 10 loyal brand customers to explore purchasing motivations.', breakdown: '<strong>Interview Method:</strong> Yields rich qualitative insights and personal narratives.' },
+            { id: 5, level: 'basic', title: 'Naturalistic Observation in Retail Stores', desc: 'Quietly observing shopper dwell times in front of snack displays at a supermarket in Guatemala City without interfering.', breakdown: '<strong>Observation Method:</strong> Records authentic, uninfluenced consumer behaviors in natural settings.' },
+
+            // Intermediate (6-10)
+            { id: 6, level: 'intermediate', title: 'Executing Single-Brand Case Studies', desc: 'Conducting an intensive, multi-method examination of a single artisan coffee shop’s rise to market prominence.', breakdown: '<strong>Case Study Method:</strong> Provides deep, holistic understanding of a singular unique instance or entity.' },
+            { id: 7, level: 'intermediate', title: 'Identifying Correlational Relationships', desc: 'Calculating the statistical association between customer age and spending amount in a clothing boutique.', breakdown: '<strong>Correlational Analysis:</strong> Measures the direction and strength of linear association between two variables.' },
+            { id: 8, level: 'intermediate', title: 'Interpreting Positive vs. Negative Correlations', desc: 'Finding a +0.75 correlation between ad exposure and brand recall, and a -0.60 correlation between price and purchase frequency.', breakdown: '<strong>Coefficient Interpretation:</strong> Positive values move together; negative values move inversely.' },
+            { id: 9, level: 'intermediate', title: 'The Correlation-Causation Fallacy', desc: 'Analyzing why finding a correlation between ice cream sales and sunscreen purchases does not mean one causes the other.', breakdown: '<strong>Causation Warning:</strong> Third confounding variables (e.g., warm weather) explain the covariance.' },
+            { id: 10, level: 'intermediate', title: 'Interpreting Fictional Market Findings', desc: 'Evaluating a market report stating that customer loyalty correlates with store cleanliness.', breakdown: '<strong>Finding Analysis:</strong> Identifying what can be concluded (association) and what cannot (direct cause).' },
+
+            // Advanced (11-15)
+            { id: 11, level: 'advanced', title: 'Evaluating Third Confounding Variables in Correlational Studies', desc: 'Examining why income level acts as a confound when correlating smartphone ownership with luxury brand preference.', breakdown: '<strong>Confound Control:</strong> Recognizing hidden variables that create spurious statistical correlations.' },
+            { id: 12, level: 'advanced', title: 'Comparing Strengths of Descriptive vs. Experimental Designs', desc: 'Weighing why descriptive research has high external validity but low internal validity compared to experiments.', breakdown: '<strong>Methodological Trade-off:</strong> Descriptive methods capture real-world phenomena but cannot prove causality.' },
+            { id: 13, level: 'advanced', title: 'Method Selection 1: Measuring Customer Satisfaction', desc: 'Selecting a large-scale structured survey to measure satisfaction across 5,000 recent online retail buyers.', breakdown: '<strong>Method Selection:</strong> Surveys provide standardized quantitative metrics for massive consumer bases.' },
+            { id: 14, level: 'advanced', title: 'Method Selection 2: Investigating In-Store Navigation', desc: 'Selecting naturalistic observation to study how shoppers navigate complex aisle layouts in department stores.', breakdown: '<strong>Method Selection:</strong> Observation avoids self-reporting bias by recording actual physical behavior.' },
+            { id: 15, level: 'advanced', title: 'Method Selection 3: Examining Ad Spend and Brand Recall Link', desc: 'Selecting correlational analysis to examine historical market data linking quarterly ad spending to brand recall scores.', breakdown: '<strong>Method Selection:</strong> Correlational analysis uncovers patterns and predictive trends across large datasets.' }
+        ];
+
+        function renderExamples(filter = 'all') {
+            const container = document.getElementById('examplesContainer');
+            container.innerHTML = '';
+
+            const filtered = filter === 'all' ? solvedExamplesData : solvedExamplesData.filter(ex => ex.level === filter);
+
+            filtered.forEach(ex => {
+                const badgeColor = ex.level === 'basic' ? 'bg-montanoBlue' : ex.level === 'intermediate' ? 'bg-montanoTeal' : 'bg-montanoOlive';
+                const card = document.createElement('div');
+                card.className = 'bg-white border-2 border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all';
+                card.innerHTML = `
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center space-x-2">
+                            <span class="${badgeColor} text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase">Example ${ex.id} (${ex.level})</span>
+                            <h3 class="font-bold text-gray-800 text-sm sm:text-base">${ex.title}</h3>
+                        </div>
+                        <button onclick="speakText('${ex.title}. ${ex.desc}. Breakdown: ${ex.breakdown.replace(/<[^>]*>?/gm, '')}')" class="text-montanoBlue hover:text-sky-700 p-2 text-lg" title="Listen to Example Audio">
+                            <i class="fa-solid fa-volume-high"></i>
+                        </button>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-600 mb-3 bg-gray-50 p-3 rounded-xl border border-gray-100">
+                        <strong>Scenario:</strong> ${ex.desc}
+                    </p>
+                    <div class="text-xs sm:text-sm text-gray-700 bg-montanoBg p-3 rounded-xl border border-blue-100">
+                        <strong>Scientific Breakdown:</strong> ${ex.breakdown}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterExamples(level) {
+            renderExamples(level);
+        }
+
+        // Live Voice Simulator & AI Dashboard Logic
+        let simHistory = [];
+        function handleUserSimInput() {
+            const input = document.getElementById('simUserInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            appendChatBubble('You', text, 'bg-montanoTeal text-white', 'ml-auto');
+            input.value = '';
+
+            // Simulate AI evaluation update
+            updateDashboardMetrics(text);
+
+            // Simulate Research Director response after 1 second
+            setTimeout(() => {
+                let rdReply = "Good research proposal! Make sure to clarify whether your chosen method establishes association or causation.";
+                if (text.toLowerCase().includes('descriptive') || text.toLowerCase().includes('survey') || text.toLowerCase().includes('observation') || text.toLowerCase().includes('correlation') || text.toLowerCase().includes('causation')) {
+                    rdReply = "Outstanding research analysis! Your integration of descriptive methods and awareness of correlation limits meets C1 standards. Approved!";
+                }
+                appendChatBubble('RD', rdReply, 'bg-teal-50 text-gray-800 border border-teal-100', '');
+                speakText(rdReply);
+            }, 1000);
+        }
+
+        function appendChatBubble(sender, text, styleClass, alignClass) {
+            const chatBox = document.getElementById('simChatBox');
+            const bubble = document.createElement('div');
+            bubble.className = `flex items-start space-x-2 ${alignClass}`;
+            
+            if (sender === 'RD') {
+                bubble.innerHTML = `
+                    <div class="bg-montanoTeal text-white rounded-full w-8 h-8 flex items-center justify-center text-xs font-bold flex-shrink-0">RD</div>
+                    <div class="${styleClass} p-3 rounded-2xl rounded-tl-none text-sm max-w-[85%]">${text}</div>
+                `;
+            } else {
+                bubble.innerHTML = `
+                    <div class="${styleClass} p-3 rounded-2xl rounded-tr-none text-sm max-w-[85%]">${text}</div>
+                    <div class="bg-montanoOlive text-white rounded-full w-8 h-8 flex items-center justify-center text-xs font-bold flex-shrink-0">You</div>
+                `;
+            }
+            chatBox.appendChild(bubble);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function updateDashboardMetrics(userText) {
+            const len = userText.length;
+            const pScore = Math.min(98, Math.max(75, 80 + Math.floor(len / 5)));
+            const gScore = Math.min(99, Math.max(80, 85 + (userText.toLowerCase().includes('descriptive') || userText.toLowerCase().includes('survey') || userText.toLowerCase().includes('correlation') ? 10 : 0)));
+            const eScore = Math.min(100, Math.max(90, 92 + (userText.toLowerCase().includes('please') || userText.toLowerCase().includes('thank') || len > 30 ? 5 : 0)));
+
+            document.getElementById('metricPronounceVal').innerText = pScore + '%';
+            document.getElementById('metricPronounceBar').style.width = pScore + '%';
+
+            document.getElementById('metricGrammarVal').innerText = gScore + '%';
+            document.getElementById('metricGrammarBar').style.width = gScore + '%';
+
+            document.getElementById('metricEtiquetteVal').innerText = eScore + '%';
+            document.getElementById('metricEtiquetteBar').style.width = eScore + '%';
+
+            // Detect key terms
+            const termsContainer = document.getElementById('keyTermsContainer');
+            const keywords = ['descriptive research', 'surveys', 'interviews', 'observation', 'case study', 'correlation', 'causation', 'confounding'];
+            keywords.forEach(kw => {
+                if (userText.toLowerCase().includes(kw) && !termsContainer.innerHTML.includes(kw)) {
+                    const tag = document.createElement('span');
+                    tag.className = 'bg-montanoBg text-montanoTeal text-xs font-bold px-2.5 py-1 rounded-lg border border-teal-200 capitalize';
+                    tag.innerText = kw;
+                    termsContainer.appendChild(tag);
+                }
+            });
+
+            const feedbackElem = document.getElementById('aiFeedbackText');
+            if (gScore > 90) {
+                feedbackElem.innerText = '"Outstanding C1 research proficiency! Your understanding of non-experimental methods and correlation limits is exemplary."';
+            } else {
+                feedbackElem.innerText = '"Good effort! Try including specific terms like \'descriptive research\' and \'correlation does not equal causation\' to maximize your score."';
+            }
+        }
+
+        // Web Speech Recognition integration
+        function toggleVoiceRecognition() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                showMsg("Speech Recognition API is not supported in your browser. Please use Chrome or Edge.");
+                return;
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            const micBtn = document.getElementById('micBtn');
+            micBtn.classList.add('bg-red-500', 'animate-pulse');
+
+            recognition.onresult = function(event) {
+                const speechResult = event.results[0][0].transcript;
+                document.getElementById('simUserInput').value = speechResult;
+                micBtn.classList.remove('bg-red-500', 'animate-pulse');
+                handleUserSimInput();
+            };
+
+            recognition.onerror = function(event) {
+                micBtn.classList.remove('bg-red-500', 'animate-pulse');
+                showMsg("Voice recognition error occurred. Please type your answer.");
+            };
+
+            recognition.onend = function() {
+                micBtn.classList.remove('bg-red-500', 'animate-pulse');
+            };
+
+            recognition.start();
+        }
+
+        // Reflection word counters and save
+        document.addEventListener('DOMContentLoaded', () => {
+            ['1', '2'].forEach(id => {
+                const textarea = document.getElementById(`refInput${id}`);
+                const counter = document.getElementById(`wordCount${id}`);
+                textarea.addEventListener('input', () => {
+                    const words = textarea.value.trim() ? textarea.value.trim().split(/\s+/).length : 0;
+                    counter.innerText = words + ' words';
+                });
+            });
+
+            renderExamples('all');
+            renderEvaluation('all');
+        });
+
+        function saveReflection(id) {
+            const val = document.getElementById(`refInput${id}`).value.trim();
+            const words = val ? val.split(/\s+/).length : 0;
+            if (words < 15) {
+                showMsg("Please write a more comprehensive reflection (at least 15 words) demonstrating critical analysis.");
+                return;
+            }
+            if (id === 2) {
+                showMsg("Activity 1 Checkpoint successfully submitted! Your method selection proposal has been recorded for your Colegio Montano portfolio.");
+            } else {
+                showMsg(`Reflection ${id} successfully saved and submitted to your Colegio Montano portfolio!`);
+            }
+        }
+
+        // 15 Formative Evaluation Problems Data (Guide 4)
+        const evaluationData = [
+            // Basic (1-5)
+            { id: 1, level: 'basic', q: 'What is the primary characteristic of descriptive research?', options: ['A) Active manipulation of independent variables', 'B) Systematic documentation of behaviors, attitudes, or characteristics without manipulation', 'C) Proving direct causation', 'D) Eliminating control groups'], answer: 'B', explanation: 'Descriptive research observes and records phenomena without altering conditions.' },
+            { id: 2, level: 'basic', q: 'Which method is best suited for gathering self-reported attitudes from thousands of consumers quickly?', options: ['A) Naturalistic observation', 'B) Surveys / Questionnaires', 'C) Single-session laboratory experiments', 'D) In-depth single case studies'], answer: 'B', explanation: 'Surveys efficiently gather self-reported data from large sample populations.' },
+            { id: 3, level: 'basic', q: 'What is the main advantage of naturalistic observation?', options: ['A) High artificial control', 'B) Recording authentic, uninfluenced behavior in real-world settings', 'C) Proving cause-and-effect relationships', 'D) Eliminating all sampling errors'], answer: 'B', explanation: 'Observation captures natural consumer actions without artificial laboratory bias.' },
+            { id: 4, level: 'basic', q: 'What does a correlational coefficient measure?', options: ['A) The exact causal impact of variable A on variable B', 'B) The strength and direction of statistical association between two variables', 'C) The temperature of the test lab', 'D) The percentage of survey dropouts'], answer: 'B', explanation: 'Correlational coefficients quantify how variables covary together.' },
+            { id: 5, level: 'basic', q: 'What is the golden rule regarding correlation and causation?', options: ['A) Correlation always proves causation', 'B) Correlation does not establish causation', 'C) Causation always creates zero correlation', 'D) They are identical concepts'], answer: 'B', explanation: 'Association between variables does not prove that one causes the other.' },
+
+            // Intermediate (6-10)
+            { id: 6, level: 'intermediate', q: 'What is a case study best used for?', options: ['A) Generalizing findings across millions of global buyers', 'B) Intensive, holistic examination of a single consumer, brand, or retail store', 'C) Running statistical correlation matrices', 'D) Quick online polling'], answer: 'B', explanation: 'Case studies provide deep, detailed insights into singular unique entities.' },
+            { id: 7, level: 'intermediate', q: 'If a market study shows a correlation of -0.85 between product price and purchase frequency, what does this mean?', options: ['A) As price increases, purchase frequency tends to decrease strongly', 'B) As price increases, purchase frequency increases', 'C) There is no relationship', 'D) Price causes purchase frequency'], answer: 'A', explanation: 'A strong negative coefficient (-0.85) indicates inverse movement between variables.' },
+            { id: 8, level: 'intermediate', q: 'Why can a researcher not conclude that social media ad posts directly cause increased retail sales based solely on a positive correlation?', options: ['A) Because math is inaccurate', 'B) Because third confounding variables or reverse causation could explain the link', 'C) Because surveys are illegal', 'D) Because correlation coefficients must be zero'], answer: 'B', explanation: 'Correlational studies cannot rule out third confounds or determine directionality.' },
+            { id: 9, level: 'intermediate', q: 'Which descriptive method provides the deepest qualitative insights into individual consumer motivations?', options: ['A) Large quantitative surveys', 'B) In-depth interviews', 'C) Automated traffic counters', 'D) Price tracking charts'], answer: 'B', explanation: 'Interviews allow open dialogue and exploration of underlying personal motivations.' },
+            { id: 10, level: 'intermediate', q: 'When should a researcher choose descriptive research over an experiment?', options: ['A) When they need to prove strict cause-and-effect', 'B) When ethical or practical constraints prevent manipulation and the goal is to map real-world trends', 'C) When they want to eliminate all variables', 'D) When they have no participants'], answer: 'B', explanation: 'Descriptive research is ideal when variables cannot be manipulated or when exploring new phenomena.' },
+
+            // Advanced (11-15)
+            { id: 11, level: 'advanced', q: 'How do third confounding variables distort correlational data in market research?', options: ['A) By making sample sizes smaller', 'B) By creating a spurious statistical association between two variables influenced by a hidden third factor', 'C) By turning descriptive studies into true experiments', 'D) By eliminating survey bias'], answer: 'B', explanation: 'Hidden third factors can make two unrelated variables appear strongly correlated.' },
+            { id: 12, level: 'advanced', q: 'What is the trade-off between descriptive research and experimental research regarding validity?', options: ['A) Descriptive research has high external validity but low internal validity; experiments have high internal validity', 'B) Both have zero validity', 'C) Experiments have high external validity only', 'D) Descriptive methods prove causation'], answer: 'A', explanation: 'Descriptive studies reflect real life (external validity), while experiments control confounds (internal validity).' },
+            { id: 13, level: 'advanced', q: 'If a marketing manager needs to measure customer satisfaction across 5,000 recent buyers efficiently, which method is most suitable?', options: ['A) Single-subject case study', 'B) Structured quantitative survey', 'C) Naturalistic observation in parking lots', 'D) In-depth personal interviews for all 5,000 buyers'], answer: 'B', explanation: 'Structured surveys provide scalable quantitative data for large populations.' },
+            { id: 14, level: 'advanced', q: 'If a researcher wants to study how shoppers physically navigate complex aisle layouts without altering behavior, what is the best method?', options: ['A) Telephone surveys', 'B) Naturalistic observation', 'C) Correlational price analysis', 'D) Laboratory experiments'], answer: 'B', explanation: 'Naturalistic observation records actual spatial movement without researcher interference.' },
+            { id: 15, level: 'advanced', q: 'What confirms C1 mastery when evaluating market research proposals involving correlational data?', options: ['A) Claiming that correlation proves direct marketing impact', 'B) Accurately identifying correlation coefficients, recognizing patterns, and explicitly warning against causation fallacies', 'C) Ignoring statistical trends', 'D) Relying entirely on intuition'], answer: 'B', explanation: 'C1 mastery requires rigorous analytical interpretation and strict adherence to scientific limitations.' }
+        ];
+
+        function renderEvaluation(filter = 'all') {
+            const container = document.getElementById('evaluationContainer');
+            container.innerHTML = '';
+
+            const filtered = filter === 'all' ? evaluationData : evaluationData.filter(ev => ev.level === filter);
+
+            filtered.forEach(ev => {
+                const badgeColor = ev.level === 'basic' ? 'bg-montanoBlue' : ev.level === 'intermediate' ? 'bg-montanoTeal' : 'bg-montanoOlive';
+                const card = document.createElement('div');
+                card.className = 'bg-white border-2 border-gray-200 rounded-2xl p-5 shadow-sm space-y-3';
+                
+                let optionsHtml = '';
+                ev.options.forEach(opt => {
+                    optionsHtml += `<label class="block text-xs sm:text-sm text-gray-700 bg-gray-50 p-2.5 rounded-xl border border-gray-100 cursor-pointer hover:bg-teal-50 transition-all"><input type="radio" name="evalQ_${ev.id}" value="${opt[0]}" class="mr-2 accent-montanoTeal"> ${opt}</label>`;
+                });
+
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="${badgeColor} text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase">Problem ${ev.id} (${ev.level})</span>
+                        <button onclick="speakText('${ev.q}')" class="text-montanoTeal hover:text-teal-700 text-sm" title="Listen to Question"><i class="fa-solid fa-volume-high"></i></button>
+                    </div>
+                    <p class="font-bold text-gray-800 text-sm sm:text-base">${ev.q}</p>
+                    <div class="space-y-2">${optionsHtml}</div>
+                    
+                    <div class="flex justify-between items-center pt-2">
+                        <button onclick="toggleSolution(${ev.id})" id="solBtn_${ev.id}" class="bg-montanoYellow text-montanoBlue text-xs font-bold px-4 py-2 rounded-xl shadow hover:bg-yellow-300 transition-transform active:scale-95">
+                            <i class="fa-solid fa-eye mr-1"></i> Show Solution
+                        </button>
+                        <span id="evalFeedback_${ev.id}" class="text-xs font-bold"></span>
+                    </div>
+
+                    <div id="solutionBox_${ev.id}" class="hidden bg-montanoBg p-4 rounded-xl border border-blue-200 text-xs sm:text-sm text-gray-700 space-y-1 mt-2">
+                        <p class="font-bold text-montanoBlue">Correct Answer: Option ${ev.answer}</p>
+                        <p><strong>Explanation:</strong> ${ev.explanation}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterEvaluation(level) {
+            renderEvaluation(level);
+        }
+
+        function toggleSolution(id) {
+            const solBox = document.getElementById(`solutionBox_${id}`);
+            const btn = document.getElementById(`solBtn_${id}`);
+            if (solBox.classList.contains('hidden')) {
+                solBox.classList.remove('hidden');
+                btn.innerHTML = '<i class="fa-solid fa-eye-slash mr-1"></i> Hide Solution';
+                btn.classList.remove('bg-montanoYellow');
+                btn.classList.add('bg-gray-300', 'text-gray-800');
+            } else {
+                solBox.classList.add('hidden');
+                btn.innerHTML = '<i class="fa-solid fa-eye mr-1"></i> Show Solution';
+                btn.classList.remove('bg-gray-300', 'text-gray-800');
+                btn.classList.add('bg-montanoYellow');
+            }
+        }
+    </script>
+</body>
+</html>
